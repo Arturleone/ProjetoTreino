@@ -14,7 +14,7 @@ interface UsuarioAPI {
     fun realizarLogin(
         @Query ("email") email: String,
         @Query ("senha") senha: String
-    ): Call<Void>
+    ): Call<LoginResponse>
 
     @GET ("api/Usuarios")
     fun listarUsuarios(): Call<List<UserDetails>>
