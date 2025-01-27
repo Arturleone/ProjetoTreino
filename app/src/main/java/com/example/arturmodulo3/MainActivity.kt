@@ -46,9 +46,38 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
     fun animacoes(Textview: TextView) {
         fadeIN(Textview)
+        iniciarAnimacaoDeGradienteNoTexto(Textview)
 
+    }
+
+    private fun iniciarAnimacaoDeGradienteNoTexto(textView: TextView) {
+        val conjuntosDeCores = listOf(
+            intArrayOf(R.color.block, R.color.block2, R.color.block3),
+            intArrayOf(R.color.block3, R.color.block, R.color.block2),
+            intArrayOf(R.color.block2, R.color.block3, R.color.block)
+        )
+
+        var indiceConjuntoDeCorAtual = 0
+        val handler = Handler(Looper.getMainLooper())
+        val atualizadorDeGradiente = object : Runnable {
+            override fun run() {
+                val largura = textView.width.toFloat()
+                val shader = LinearGradient(0f, 0f, largura, 0f,
+                    conjuntosDeCores[indiceConjuntoDeCorAtual].map {
+                        ContextCompat.getColor(this@MainActivity, it)
+                    }.toIntArray(),
+                    null, Shader.TileMode.CLAMP)
+                textView.paint.shader = shader
+                textView.invalidate()
+
+                indiceConjuntoDeCorAtual = (indiceConjuntoDeCorAtual + 1) % conjuntosDeCores.size
+                handler.postDelayed(this, 500)
+            }
+        }
+        handler.post(atualizadorDeGradiente)
     }
 
     fun fadeIN(Textview: TextView) {

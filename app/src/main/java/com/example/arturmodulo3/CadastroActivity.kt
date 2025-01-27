@@ -39,7 +39,7 @@ class CadastroActivity : AppCompatActivity() {
 
         salvar.setOnClickListener{
             if (nome.text.toString().isNotEmpty() && email.text.toString().isNotEmpty() && senha.text.toString().isNotEmpty()){
-                val usuario2 = Usuario(nome.text.toString(), email.text.toString(), senha.text.toString(), "MG","1")
+                val usuario2 = Usuario(nome.text.toString(), email.text.toString(), senha.text.toString(), "MG",1)
                 cadastrarUsuario(usuario2)
 
             }
